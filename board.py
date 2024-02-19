@@ -1,35 +1,38 @@
-import pygame as pg
+sudokuGrid = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
+def printGrid():
+    print()
+    endStr = " "
+    for i in range(9):
+        for j in range(9):
+            if (j % 3 == 2):
+                endStr = "  "
+            else:
+                endStr = " "
+            print(sudokuGrid[i][j], end = endStr)
+        print()
+        if (i % 3 == 2):
+            print()
 
-def draw_sudoku_grid():
-    #box = pg.Rect((50, 50), (700, 700))
-    pg.draw.line(screen, BLACK, (50, 50), (50, 750), 3)
-    pg.draw.line(screen, BLACK, (50, 50), (750, 50), 3)
-    pg.draw.line(screen, BLACK, (50, 750), (750, 750), 3)
-    pg.draw.line(screen, BLACK, (750, 50), (750, 750), 3)
+def getGridFromUser():
+    for i in range(9):
+        print("Row " + str(i + 1) + ": ", end = "")
+        rowStr = str(input())
+        if (len(rowStr) != 9):
+            print("Invalid input row")
+            break
 
-    #pg.draw.rect(screen, BLACK, box, 3)
-    for offset in range(3):
-        pg.draw.line(screen, BLACK, (50 + ((700 * offset) / 3), 50), (50 + ((700 * offset) / 3), 750), 3)
+        for j in range(9):
+            sudokuGrid[i][j] = int(rowStr[j])
 
-        pg.draw.line(screen, BLACK, (50, 50 + (700 * offset) / 3), (750, (50 + (700 * offset) / 3)), 3)
-    #pg.draw.line(screen, BLACK, ())
-
-(screen_width, screen_height) = (800, 800)
-
-screen = pg.display.set_mode((screen_width, screen_height))
-pg.display.set_caption('Sudoku')
-screen.fill(WHITE)
-
-draw_sudoku_grid()
-pg.display.flip()
-
-running = True
-while running:
-    for event in pg.event.get():
-        if event.type == pg.QUIT:
-            running = False
-
-
+printGrid()
+getGridFromUser()
+printGrid()
