@@ -11,9 +11,24 @@ sudokuGrid = [[0, 3, 9, 5, 7, 4, 1, 8, 2],
               [9, 5, 6, 7, 4, 8, 2, 3, 1],
               [8, 1, 3, 2, 9, 6, 7, 4, 5],
               [2, 7, 4, 3, 5, 1, 6, 9, 8]]
+
+# This function is used to get the i'th column
 def getCol(i, grid):
     return [row[i] for row in grid]
 
+''' Prints to look like this:
+0 3 9  5 7 4  1 8 2
+5 4 1  8 2 9  3 7 6
+7 8 2  6 1 3  9 5 4
+
+1 9 8  4 6 7  5 2 3
+3 6 5  9 8 2  4 1 7
+4 2 7  1 3 5  8 6 9
+
+9 5 6  7 4 8  2 3 1
+8 1 3  2 9 6  7 4 5
+2 7 4  3 5 1  6 9 8
+'''
 def printGrid(grid):
     print()
     endStr = " "
@@ -28,6 +43,8 @@ def printGrid(grid):
         if (i % 3 == 2):
             print()
 
+# The user inputs 9 rows of their sudoku grid
+    # Stores the input into sudokuGrid
 def getGridFromUser():
     for i in range(9):
         print("Row " + str(i + 1) + ": ", end = "")
@@ -39,6 +56,7 @@ def getGridFromUser():
         for j in range(9):
             sudokuGrid[i][j] = int(rowStr[j])
 
+# List used to check that a row/column/square is valid
 validRowCol = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 def isWinCondition(grid):
     ## Check Rows
@@ -61,6 +79,8 @@ def isWinCondition(grid):
                 return False
     return True
 
+# Fills in the 0s of the grid with possible numbers given the row
+    # Does not check columns or 3x3 squares to see if returned solution is valid
 def generateRandomSolution():
     solution = []
     for i in range(9):
@@ -68,6 +88,7 @@ def generateRandomSolution():
         row = sudokuGrid[i]
         missingNumbers = [n for n in range(1, 10) if n not in row]
         random.shuffle(missingNumbers)
+        # If n is 0, input a missing number. Otherwise, keep the known number
         solutionRow.extend([n or missingNumbers.pop() for n in row])
         solution.append(solutionRow)
     return solution
